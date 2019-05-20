@@ -11,6 +11,12 @@
   </head>
   <body>
     <%= yield %>
+
+    <% # DEVISE NOTIFICATIONS %>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
+    <% # ASYNC JS %>
     <%= javascript_include_tag 'application' %>
     <%= javascript_pack_tag 'application' %>
   </body>
