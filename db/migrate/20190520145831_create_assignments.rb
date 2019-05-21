@@ -1,6 +1,6 @@
-class CreateAssignements < ActiveRecord::Migration[5.2]
+class CreateAssignments < ActiveRecord::Migration[5.2]
   def change
-    create_table :assignements do |t|
+    create_table :assignments do |t|
       t.boolean :validated
       t.references :task, foreign_key: true
       t.references :user, foreign_key: true

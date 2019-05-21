@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_many :tasks
   has_many :assignments
-
+  
   ROLES = %w[owner concierge tenant]
 
   # Include default devise modules. Others available are:

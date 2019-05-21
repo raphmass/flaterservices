@@ -1,0 +1,27 @@
+
+
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://source.unsplash.com/1600x900/?appartment);display: flex; padding-top:30px; height:100vh; border:0px;">
+
+  <div class="container" style="margin-top: 30px">
+    <h2 style="color:white">Forgot your password?</h2>
+    <br>
+    
+    <div class="form-container">
+      <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <%= f.error_notification %>
+
+        <div class="form-inputs">
+          <%= f.input :email,
+                      required: true,
+                      autofocus: true,
+                      input_html: { autocomplete: "email" } %>
+        </div>
+
+        <div class="form-actions">
+          <%= f.button :submit, "Send" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+</div>

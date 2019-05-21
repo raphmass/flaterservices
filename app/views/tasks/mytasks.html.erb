@@ -1,0 +1,10 @@
+<h1>My Tasks</h1>
+<p>Find me in app/views/tasks/mytasks.html.erb</p>
+
+
+<%= link_to 'Toutes mes tâches', my_tasks_path %>
+<%= link_to 'Mes tâches assignées', '?assigned=1' %>
+<%= link_to 'Mes tâches non-assignées', '?assigned=0' %>
+
+<%= raw(ap @tasks) %>
+<%= raw(ap params[:pierre]) %>
