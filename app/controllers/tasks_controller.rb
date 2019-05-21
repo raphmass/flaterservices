@@ -11,7 +11,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(cocktail_params)
+    @task = Task.new(task_params)
     respond_to do |format|
       if @task.save
         format.html { redirect_to @task, notice: 'task was successfully created.' }
