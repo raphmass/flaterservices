@@ -11,16 +11,29 @@ require 'faker'
 
 puts "Seed start :-)"
 
-User.destroy_all
 Task.destroy_all
+User.destroy_all
 
 puts "1. creating users... "
-100.times do
+pswd = '123flater'
+# Create team accounts
+team = [
+  {first_name: 'Raphael', last_name: 'Massonneau', email: 'raph@gmail.com', password: pswd, role: 'admin' },
+  {first_name: 'Maxime', last_name: 'Forler', email: 'max@gmail.com', password: pswd, role: 'admin' },
+  {first_name: 'Pierre', last_name: 'M\'Baga', email: 'pierre@gmail.com', password: pswd, role: 'admin' },
+  {first_name: 'Dareth', last_name: 'NHANG', email: 'dareth@gmail.com', password: pswd, role: 'admin' }
+]
+team.each do |teamate|
+  User.create!(teamate)
+end
+# Create fake accounts
+50.times do
   User.create!(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
     email: Faker::Internet.email,
-    password: Faker::Internet.password
+    password: '123flater',
+    role: User::ROLES
   )
 end
 puts "... users created!"
