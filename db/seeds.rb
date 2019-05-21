@@ -9,12 +9,12 @@
 # seeding database
 require 'faker'
 
-puts "seed start :-)"
+puts "Seed start :-)"
 
 User.destroy_all
 Task.destroy_all
 
-puts "creating users"
+puts "1. creating users... "
 100.times do
   User.create!(
     first_name: Faker::Name.first_name,
@@ -23,20 +23,16 @@ puts "creating users"
     password: Faker::Internet.password
   )
 end
-puts "users created!"
+puts "... users created!"
 
+puts "2. creating tasks... "
 users = User.all
-
-puts "creating tasks"
 100.times do
   Task.create!(
-    action: ['Visit', 'Cleaning', 'Check-in/out'].sample,
-    status: 'Available',
+    action: Task::ACTIONS.sample,
+    status: Task::STATUS.sample,
     price: (5..50).to_a.sample,
     user: users.sample
   )
 end
-puts "tasks created!"
-
-
-
+puts "... tasks created!"
