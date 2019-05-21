@@ -1,2 +1,13 @@
 <h1>Tasks#new</h1>
 <p>Find me in app/views/tasks/new.html.erb</p>
+
+
+<%= simple_form_for (@task) do |f| %>
+<%= f.error_notification %>
+<%= f.input :action, selected:'Visit', collection: Task::ACTIONS %>
+<%= f.input :location %>
+<%= f.input :date %>
+<%= f.input :price %>
+<%= f.button :submit, class: "btn-primary" %>
+<%= f.button :button, "Cancel", type: "reset", class: "btn-outline-secondary" %>
+<% end %>
