@@ -1,0 +1,8 @@
+<h1>My Tasks</h1>
+<p>Find me in app/views/tasks/mytasks.html.erb</p>
+
+
+<%= link_to 'Mes tâches assignées', '?assigned=true' %>
+<%= link_to 'Mes tâches non-assignées', '?assigned=false' %>
+
+<%= raw(ap @tasks) %>

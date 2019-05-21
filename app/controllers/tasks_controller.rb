@@ -1,9 +1,15 @@
 class TasksController < ApplicationController
+  before_action :set_task, only: [:show, :destroy]
+
   def index
     @tasks = Task.all
   end
 
   def show
+  end
+
+  def mytasks
+    @tasks = Task.where(user_id: current_user)
   end
 
   def new
