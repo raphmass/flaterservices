@@ -8,8 +8,18 @@ class TasksController < ApplicationController
   def show
   end
 
+  # def mytasks
+  #   query = {user_id: current_user}
+  #   query[:status] = 'Assigned' if param_assigned
+  #   @tasks = Task.where(query)
+  # end
   def mytasks
-    @tasks = Task.where(user_id: current_user)
+    if params[:assigned]
+      query = { user_id: current_user, status: Task::STATUS[params[:assigned].to_i] }
+    else
+      query = { user_id: current_user }
+    end
+    @tasks = Task.where(query)
   end
 
   def new
