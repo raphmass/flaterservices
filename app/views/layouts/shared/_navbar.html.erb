@@ -1,5 +1,5 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
-  <%= link_to "#", class: "navbar-brand" do %>
+  <%= link_to "/", class: "navbar-brand" do %>
     <%= image_tag "FlaterLogo.png" %>
   <% end %>
 
@@ -23,7 +23,7 @@
           </li>
         <% else %>
           <li class="nav-item">
-            <span class="nav-link nav-logged"> <%= link_to "Sign in", "#"  %> </span>
+            <span class="nav-link nav-logged"> <%= link_to "Sign in", new_user_session_path %> </span>
           </li>
       <% end %>
       
