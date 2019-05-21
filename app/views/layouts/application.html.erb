@@ -10,7 +10,12 @@
     <%#= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
   </head>
   <body>
+    
+    <%= render 'layouts/shared/navbar' %>
+
+
     <%= yield %>
+
 
     <% # DEVISE NOTIFICATIONS %>
     <p class="notice"><%= notice %></p>
