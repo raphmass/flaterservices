@@ -6,10 +6,13 @@
     <a class="btn btn-primary" href="#">Concierge a visit</a>
   </div>
 
-	<div class="form-container">
-		<%= render 'users/registrations/form' %>
-	</div>
+	<% unless user_signed_in? %>
+		<div class="form-container">
+			<%= render 'users/registrations/form' %>
+		</div>
+	<% end %>
 </div>
+
 
 <div class="container">
 	<%= render 'pages/flaterdescription' %>
