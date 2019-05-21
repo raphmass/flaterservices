@@ -2,7 +2,6 @@
   background-size: cover;
   background-position: center;
   padding: 150px 0;
-  display: flex;
 }
 
 .banner h1 {
@@ -20,3 +19,8 @@
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
 }
 
+.banner-text{
+  border-style: solid;
+  border-color: red;
+  width:600px;
+}

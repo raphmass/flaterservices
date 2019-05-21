@@ -17,9 +17,9 @@
                 input_html: { autocomplete: "new-password" } %>
   </div>
 
-  <div class="form-actions btn btn-success">
-    <%= f.button :submit, "Sign up" %>
+  <div class="form-actions">
+    <%= f.button :submit, class: "btn-success", name:"Sign up" %>
   </div>
 <% end %>
 
-<%= render "users/shared/links-light" %>
+<%= render "devise/shared/links-light" %>
