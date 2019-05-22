@@ -15,7 +15,8 @@
 			      <p><strong>Date: </strong><%= task.date %></p>
 			      <p><strong>Flat owner: </strong><%= task.user_id %></p>
 			    </div>
-			    <h2 class="task-card-apply btn btn-success">Apply</h2>
+			    <h2 class="task-card-details btn btn-info"><%= link_to "Details",task_path(task) %> </h2>
+			    <h2 class="task-card-apply btn btn-success"><%= link_to "Apply" , "#" %></h2>
 			    <h2 class="task-card-pricing"><%= task.price %> €</h2>
 			    <img src='https://kitt.lewagon.com/placeholder/users/krokrob' class="task-card-user avatar-bordered"/>
 			  </div>
