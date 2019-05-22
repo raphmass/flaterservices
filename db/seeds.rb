@@ -9,11 +9,16 @@
 # seeding database
 require 'faker'
 
+separator = "---------------------------"
+
+puts separator
 puts "Seed start :-)"
 
+Assignment.destroy_all
 Task.destroy_all
 User.destroy_all
 
+puts separator
 puts "1. creating users... "
 pswd = '123flater'
 # Create team accounts
@@ -33,19 +38,34 @@ end
     last_name: Faker::Name.last_name,
     email: Faker::Internet.email,
     password: pswd,
-    role: 'user'
+    role: nil
   )
 end
 puts "... users created!"
 
+puts separator
 puts "2. creating tasks... "
-users = User.all
+users = User.first(25)
 100.times do
   Task.create!(
     action: Task::ACTIONS.sample,
-    status: Task::STATUS.sample,
+    status: (0..Task::STATUS.size).to_a.sample,
     price: (5..50).to_a.sample,
     user: users.sample
   )
 end
 puts "... tasks created!"
+    
+puts separator
+puts "3. creating assignments... "
+tasks = Task.all
+tasks.each do |task|
+  Assignment.create!(
+    task: tasks.sample,
+    validated: [true, false].sample,
+    user: users.sample
+  )
+end
+puts "... assignements created!"
+  
+puts separator
