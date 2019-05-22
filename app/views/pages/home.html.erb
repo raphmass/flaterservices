@@ -1,0 +1,33 @@
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://source.unsplash.com/1600x900/?appartment);display: flex;">
+  <div class="container d-flex justify-content-between">
+
+  	<div class="banner-text">
+  		<h1>Flater Services: the best platform for flat visits</h1>
+  		<p>As a flat owner or as a concierge:</p>
+
+
+      <a href="<%= new_task_path %>">
+
+        <div></div>
+
+      </a>
+
+      <% zone = '<div></div>' %>
+      <%= link_to zone, new_task_path %>
+
+      CREATE A TASK </br> (owner) </a>
+  		<a class="btn btn-primary" href="<%= tasks_path %>">APPLY TO TASK </br> (concierge) </a>
+  	</div>
+
+	<% unless user_signed_in? %>
+		<div class="form-container">
+			<%= render 'devise/registrations/form' %>
+		</div>
+	<% end %>
+
+  </div>
+</div>
+
+<div class="container">
+	<%= render 'pages/flaterdescription' %>
+</div>
