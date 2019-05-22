@@ -2,6 +2,10 @@
 	<h1>Application to task <%= @task.id %> - <%= @task.action %></h1>
 	<p>You are about to apply to this task.
 	Please confirm: </p>
-	<p>BUTTON</p>
-
+	
+	<%= link_to "OK", task_assignments_path, method: :post %>
 </div>
+
+<!-- task_assignments
+POST   /tasks/:task_id/assignments(.:format)                                              assignments#create
+ -->
