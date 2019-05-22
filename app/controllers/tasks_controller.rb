@@ -6,6 +6,11 @@ class TasksController < ApplicationController
   end
 
   def show
+    @marker =
+      {
+        lat: @task.latitude,
+        lng: @task.longitude
+      }
   end
 
   def mytasks
