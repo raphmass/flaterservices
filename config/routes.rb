@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   # get 'tasks/edit'
   # get 'tasks/update'
   # get 'tasks/destroy'
+  resources :assignments, only: [:new]
   resources :tasks, only: [:index, :show, :new, :edit, :create]
   get 'my-tasks', to: 'tasks#mytasks'
   devise_for :users
