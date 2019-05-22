@@ -1,7 +1,7 @@
 <div class="container">
 	
 	<br>
-	<h1>All tasks in the market:</h1>
+	<h1>You can currently apply for <strong><%= @tasks.count %> tasks</strong></h1>
 	
 	<div class="tasks-grid">
 		<% @tasks.each do |task| %>
@@ -9,8 +9,8 @@
 			  <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/greece.jpg">
 			  <div class="task-card-infos">
 			    <div>
-			      <h2> <%= task.action %></h2>
-			      <p><strong>Status: </strong><%= task.status %></p>
+			      <h2> <%= task.action.capitalize %></h2>
+			      <p><strong>Status: </strong><%= Task::STATUS[task.status.to_i].capitalize %></p>
 			      <p><strong>Location: </strong><%= task.location %></p>
 			      <p><strong>Date: </strong><%= task.date %></p>
 			      <p><strong>Flat owner: </strong><%= task.user_id %></p>
