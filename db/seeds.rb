@@ -12,7 +12,7 @@ require 'faker'
 separator = "---------------------------"
 
 puts separator
-puts "Seed start :-)"
+puts "Seed starts :-)"
 
 Assignment.destroy_all
 Task.destroy_all
@@ -68,4 +68,6 @@ tasks.each do |task|
 end
 puts "... assignements created!"
   
+puts separator
+puts "Seed is finished ;-)"
 puts separator
