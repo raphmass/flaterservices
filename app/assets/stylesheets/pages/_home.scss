@@ -1,14 +1,21 @@
-// Specific CSS for your home-page
-
 .form-container {
-	width: 250px;
-	background-color: white;
+	width: 30%;
+	background-color: #FFFFFFCC;
 	padding: 25px;
-	position:right;
-	margin-right:25px;
+	color: $gray;
 }
 
+section {
+	margin-top: 2em;
 
- .signup-box {
+	.cards {
+		.card {
+			width: 30%;
 
- }
+			img {
+				object-fit: contain;
+				margin-bottom: 1em;
+			}
+		}
+	}
+}
