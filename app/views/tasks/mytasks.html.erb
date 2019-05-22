@@ -1,10 +1,55 @@
-<h1>My Tasks</h1>
-<p>Find me in app/views/tasks/mytasks.html.erb</p>
+<div class="container">
+	<%# TITLE %>
+	<header class="d-flex justify-content-between py-3">
+		<h1 class="title">My Tasks</h1>
+		<%= link_to '+ Create a task', new_task_path, class: 'btn btn-primary' %>
+	</header>
 
+	<%# OWNER TASKS %>
+	<% if @tasks.count.positive? %>
+		<div id="owner-menu" class="d-flex justify-content-between">
+			<h2><strong>As owner</strong> (<%= @tasks.count %>)</h2>
+			<%# OWNER MENU %>
+			<div class="menu">
+				<%= link_to 'All', my_tasks_path, class: 'btn' %>
+				<% Task::STATUS.each_with_index do |status, index| %>
+					<%= link_to status.capitalize, "?status=#{index}", class: 'btn'  %>
+				<% end %>
+			</div>
+		</div>
+		<%# VIEW TASKS %>
+		<% @tasks.each do |task| %>
+			<a href="/tasks/<%= task.id %>" class="d-flex justify-content-between py-2">
+				<span>#<%= task.id %></span>
+				<span><%= task.action.capitalize %></span>
+				<% status = Task::STATUS[task.status.to_i] %>
+				<span><%= status.capitalize if status %></span>
+			</a>
+		<% end %>
+	<% end %>
 
-<%= link_to 'Toutes mes tâches', my_tasks_path %>
-<%= link_to 'Mes tâches assignées', '?assigned=1' %>
-<%= link_to 'Mes tâches non-assignées', '?assigned=0' %>
+	<hr/>
 
-<%= raw(ap @tasks) %>
-<%= raw(ap params[:pierre]) %>
+	<%# CONCIERGE TASKS %>
+	<% if @assignments.count.positive? %>
+		<div id="concierge-menu" class="d-flex justify-content-between">
+			<h2><strong>As concierge</strong> (<%= @assignments.count %>)</h2>
+			<%# CONCIERGE MENU %>
+			<div class="menu">
+				<%= link_to 'All', my_tasks_path(anchor: 'concierge-menu'), class: 'btn' %>
+				<%= link_to 'Assigned', my_tasks_path(anchor: 'concierge-menu', assigned: 1), class: 'btn' %>
+				<%= link_to 'Not assigned', my_tasks_path(anchor: 'concierge-menu', assigned: 0), class: 'btn' %>
+			</div>
+		</div>
+		<%# VIEW TASKS %>
+		<% @assignments.each do |assignment| %>
+			<a href="/tasks/<%= assignment.task.id %>" class="d-flex justify-content-between py-2">
+				<span>#<%= assignment.task.id %></span>
+				<span><%= assignment.task.action.capitalize %></span>
+				<% status = Task::STATUS[assignment.task.status.to_i] %>
+				<span><%= status.capitalize if status %></span>
+			</a>
+		<% end %>
+	<% end %>
+
+</div>

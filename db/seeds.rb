@@ -49,7 +49,7 @@ users = User.first(25)
 100.times do
   Task.create!(
     action: Task::ACTIONS.sample,
-    status: (0..Task::STATUS.size).to_a.sample,
+    status: (0..(Task::STATUS.size - 1)).to_a.sample,
     price: (5..50).to_a.sample,
     user: users.sample
   )

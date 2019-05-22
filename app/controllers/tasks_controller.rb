@@ -9,12 +9,15 @@ class TasksController < ApplicationController
   end
 
   def mytasks
-    if params[:assigned]
-      query = { user_id: current_user, status: Task::STATUS[params[:assigned].to_i] }
-    else
-      query = { user_id: current_user }
-    end
-    @tasks = Task.where(query)
+    # Tasks
+    t_query = params[:status] ? { user_id: current_user, status: params[:status] } : { user_id: current_user }
+    @tasks = Task.where(t_query)
+
+    # Assignments
+    validated = true if params[:assigned] == 1
+    validated = false if params[:assigned] == 0
+    a_query = params[:assigned] ? { user_id: current_user, validated: true } : { user_id: current_user }
+    @assignments = Assignment.where(a_query)
   end
 
   def new
