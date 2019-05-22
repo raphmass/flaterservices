@@ -12,11 +12,14 @@ class AssignmentsController < ApplicationController
   end
 
   def new
+    @task = Task.find(params[:task_id])
     @assignment = Assignment.new
   end
 
+
   def create
     @assignment = Assignment.new(assignment_params)
+    @assignment.task = Task.find(params[:task_id])
     respond_to do |format|
       if @assignment.save
         format.html { redirect_to @assignment, notice: 'assignment was successfully created.' }
