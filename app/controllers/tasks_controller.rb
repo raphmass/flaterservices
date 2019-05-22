@@ -1,17 +1,32 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :destroy]
+  before_action :set_task, only: [:mytasks, :show, :destroy]
 
   def index
     @tasks = Task.where(status: 0)
   end
 
   def show
+    @marker =
+      {
+        lat: @task.latitude,
+        lng: @task.longitude
+      }
   end
 
   def mytasks
     # Tasks
-    t_query = params[:status] ? { user_id: current_user, status: params[:status] } : { user_id: current_user }
-    @tasks = Task.where(t_query)
+    # @all_tasks = Task.where(user_id: current_user).order('id DESC')
+    @all_tasks = current_user.tasks.order('id DESC')
+    # ASSIGNEMENT WHERE TASK_ID == CURRENT_USER.TASKS.ID && COUNT > 0
+    @tasks_to_assign = @all_tasks.where(status: 0).order('id DESC') # OK
+    # @tasks_to_assign = Assignment.where(task_id: @all_tasks)
+    # ASSIGNEMENT WHERE TASK_ID == CURRENT_USER.TASKS.ID && ASSIGNEMENT.VALIDATED TRUE && TASK.STATUS != DONE
+    @tasks_in_progress = Task.first(10)
+    # ASSIGNEMENT WHERE TASK_ID == CURRENT_USER.TASKS.ID && ASSIGNEMENT.VALIDATED TRUE && TASK.STATUS == DONE
+    @tasks_done = Task.last(10)
+
+    # @tasks_to_assign = Task.all.joins(:@assigments).where(assignment: { user: current_user })
+    # @tasks_to_assign = Task.all.joins(:assigments).where('assigments.user_id = ?', current_user.id)
 
     # Assignments
     if params[:assigned] == "1"
@@ -20,7 +35,7 @@ class TasksController < ApplicationController
       validated = false
     end
     a_query = params[:assigned] ? { user_id: current_user, validated: validated } : { user_id: current_user }
-    @assignments = Assignment.where(a_query)
+    @my_assignments = Assignment.where(a_query)
   end
 
   def new
@@ -52,8 +67,17 @@ class TasksController < ApplicationController
   private
 
   def set_task
-    @task = Task.find(params[:id])
-    @task.save!
+    # All tasks
+    @tasks = Task.all
+    # User tasks
+    if current_user
+      @my_tasks = Task.where(user_id: current_user)
+      @my_assignments = Assignment.where(user_id: current_user)
+    end
+    # Task details
+    if params[:id]
+      @task = Task.find(params[:id])
+    end
   end
 
   def task_params

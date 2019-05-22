@@ -1,10 +1,15 @@
 <div class="container">
-	<%# TITLE %>
+	<% # TITLES
+	owner = { title: "as owner", count: @all_tasks.count }
+	concierge = { title: "as concierge", count: @my_assignments.count }
+	%>
+
 	<header class="d-flex justify-content-between py-3">
 		<h1 class="title">My Tasks</h1>
 		<div id="user-menu">
-			<%= link_to 'as owner', my_tasks_path(role: 'owner'), class: 'btn' %>
-			<%= link_to 'as concierge', my_tasks_path(role: 'concierge'), class: 'btn' %>
+			<i class="fas fa-eye"></i>
+			<%= link_to "#{owner[:title].capitalize} (#{owner[:count]})", my_tasks_path(role: 'owner'), class: 'btn' %>
+			<%= link_to "#{concierge[:title].capitalize} (#{concierge[:count]})", my_tasks_path(role: 'concierge'), class: 'btn' %>
 			<%= link_to '+ Create a task', new_task_path, class: 'btn btn-primary' %>
 		</div>
 	</header>
@@ -12,16 +17,32 @@
 	<%# OWNER TASKS %>
 	<% if !params[:role] || params[:role] == 'owner' %>
 		<div id="owner-menu" class="d-flex justify-content-between">
-			<h2><strong>As owner</strong> (<%= @tasks.count %>)</h2>
+			<h2><%= owner[:title].capitalize %></h2>
 			<%# OWNER MENU %>
 			<div class="menu">
-				<%= link_to 'All', my_tasks_path, class: 'btn' %>
-				<%= link_to 'Not assigned', "?validated=0", class: 'btn' %>
-				<%= link_to 'Assigned', "?validated=1", class: 'btn' %>
+				<%= link_to "All (#{@all_tasks.count})", my_tasks_path, class: 'btn' %>
+				<%= link_to "Not assigned (#{@tasks_to_assign.count})", "?validated=0", class: 'btn' %>
+				<%= link_to "In progress (#{@tasks_in_progress.count})", "?validated=1", class: 'btn' %>
+				<%= link_to "Done (#{@tasks_done.count})", "?validated=1&status=2", class: 'btn' %>
 			</div>
 		</div>
 		<%# VIEW TASKS %>
-		<% @tasks.each do |task| %>
+		<% if params[:validated] == "0"
+				# test = 'Not assigned'
+				query = @tasks_to_assign
+			 elsif params[:validated] == "1" && params[:status] == "2"
+				# test = 'Done'
+				query = @tasks_done
+			 elsif params[:validated] == "1"
+				# test = 'In progress'
+				query = @tasks_in_progress
+			 else
+				# test = 'All'
+				query = @all_tasks
+			 end
+		%>
+		<% query.each do |task| %>
+		<%# if false %>
 			<a href="/tasks/<%= task.id %>" class="d-flex justify-content-between py-2">
 				<span>#<%= task.id %></span>
 				<span><%= task.action.capitalize %></span>
@@ -29,12 +50,13 @@
 				<span><%= status.capitalize if status %></span>
 			</a>
 		<% end %>
+		<%= raw(ap query) %>
 	<% end %>
 
 	<%# CONCIERGE TASKS %>
 	<% if params[:role] == 'concierge' %>
 		<div id="concierge-menu" class="d-flex justify-content-between">
-			<h2><strong>As concierge</strong> (<%= @assignments.count %>)</h2>
+			<h2><%= concierge[:title].capitalize %></h2>
 			<%# CONCIERGE MENU %>
 			<%# data-toggle="tooltip" data-html="true" title="<em>Tooltip</em> <u>with</u> <b>HTML</b>" %>
 			<div class="menu">
@@ -45,7 +67,7 @@
 			</div>
 		</div>
 		<%# VIEW TASKS %>
-		<% @assignments.each do |assignment| %>
+		<% @my_assignments.each do |assignment| %>
 			<a href="/tasks/<%= assignment.task.id %>" class="d-flex justify-content-between py-2">
 				<span>#<%= assignment.task.id %></span>
 				<span>concierge_id: <%= assignment.user_id %></span>

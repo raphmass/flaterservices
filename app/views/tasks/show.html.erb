@@ -1,5 +1,9 @@
 <div class="container">
-<h1>Task <%= @task.id %> - <%= @task.action %> </h1>
+ <h1>Task <%= @task.id %> - <%= @task.action %> </h1>
+</div>
+
+<div class="container d-flex">
+
 	<div class="task-card">
 	  <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/greece.jpg">
 	  <div class="task-card-infos">
@@ -15,5 +19,10 @@
 	    <img src='https://kitt.lewagon.com/placeholder/users/krokrob' class="task-card-user avatar-bordered"/>
 	  </div>
 	</div>
+  <div id="map" style="width: 100%; height: 600px;"
+    data-marker="<%= @marker.to_json %>"
+    data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+  </div>
 </div>
+
 
