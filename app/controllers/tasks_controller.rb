@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :destroy]
 
   def index
-    @tasks = Task.all
+    @tasks = Task.where(status: 0)
   end
 
   def show
@@ -14,9 +14,12 @@ class TasksController < ApplicationController
     @tasks = Task.where(t_query)
 
     # Assignments
-    validated = true if params[:assigned] == 1
-    validated = false if params[:assigned] == 0
-    a_query = params[:assigned] ? { user_id: current_user, validated: true } : { user_id: current_user }
+    if params[:assigned] == "1"
+      validated = true
+    else
+      validated = false
+    end
+    a_query = params[:assigned] ? { user_id: current_user, validated: validated } : { user_id: current_user }
     @assignments = Assignment.where(a_query)
   end
 

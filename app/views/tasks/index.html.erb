@@ -1,30 +1,27 @@
 <div class="container">
 	
 	<br>
-	<h1>All tasks in the market:</h1>
+	<h1>You can currently apply for <strong><%= @tasks.count %> tasks</strong></h1>
 	
-	<div class="cards">
+	<div class="tasks-grid">
 		<% @tasks.each do |task| %>
 			<div class="task-card">
 			  <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/greece.jpg">
 			  <div class="task-card-infos">
 			    <div>
-			      <h2> <%= task.action %></h2>
-			      <p><strong>Status: </strong><%= task.status %></p>
+			      <h2> <%= task.action.capitalize %></h2>
+			      <p><strong>Status: </strong><%= Task::STATUS[task.status.to_i].capitalize %></p>
 			      <p><strong>Location: </strong><%= task.location %></p>
 			      <p><strong>Date: </strong><%= task.date %></p>
 			      <p><strong>Flat owner: </strong><%= task.user_id %></p>
 			    </div>
-			    <h2 class="task-card-apply btn btn-success">Apply</h2>
+			    <h2 class="task-card-details btn btn-info"><%= link_to "Details",task_path(task) %> </h2>
+			    <h2 class="task-card-apply btn btn-success"><%= link_to "Apply" , new_task_assignment_path(task) %></h2>
 			    <h2 class="task-card-pricing"><%= task.price %> €</h2>
 			    <img src='https://kitt.lewagon.com/placeholder/users/krokrob' class="task-card-user avatar-bordered"/>
 			  </div>
 			</div>
 		<% end %>
 	</div>
-
-
-
-
 
 </div>

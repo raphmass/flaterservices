@@ -12,20 +12,20 @@ class AssignmentsController < ApplicationController
   end
 
   def new
+    @task = Task.find(params[:task_id])
     @assignment = Assignment.new
   end
 
+
   def create
-    @assignment = Assignment.new(assignment_params)
-    respond_to do |format|
-      if @assignment.save
-        format.html { redirect_to @assignment, notice: 'assignment was successfully created.' }
-        format.json { render :show, status: :created, location: @assignment }
-      else
-        format.html { render :new }
-        format.json { render json: @assignment.errors, status: :unprocessable_entity }
-      end
-    end
+    @assignment = Assignment.new
+    @assignment.task = Task.find(params[:task_id])
+    @assignment.user_id = current_user.id
+
+    @assignment.save
+
+    redirect_to my_tasks_path
+
   end
 
   private
@@ -35,7 +35,4 @@ class AssignmentsController < ApplicationController
     @assignment.save!
   end
 
-  def assignment_params
-    params.require(:assignment).permit(:name)
-  end
 end

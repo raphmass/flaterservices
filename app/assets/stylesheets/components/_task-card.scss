@@ -43,6 +43,15 @@
   right: 12px;
   top: 72px;
   width: 80px;
+  text-decoration: false;
+}
+
+.task-card-infos .task-card-details {
+  position: absolute;
+  right: 110px;
+  top: 72px;
+  width: 80px;
+  text-decoration: false;
 }
 
 .task-card-infos .task-card-pricing {

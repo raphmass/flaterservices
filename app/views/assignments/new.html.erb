@@ -1,2 +1,11 @@
-<h1>assignments#new</h1>
-<p>Find me in app/views/assignments/new.html.erb</p>
+<div class="container">
+	<h1>Application to task <%= @task.id %> - <%= @task.action %></h1>
+	<p>You are about to apply to this task.
+	Please confirm: </p>
+	
+	<%= link_to "OK", task_assignments_path, method: :post %>
+</div>
+
+<!-- task_assignments
+POST   /tasks/:task_id/assignments(.:format)                                              assignments#create
+ -->
