@@ -32,8 +32,8 @@ end
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
     email: Faker::Internet.email,
-    password: '123flater',
-    role: User::ROLES
+    password: pswd,
+    role: 'user'
   )
 end
 puts "... users created!"
