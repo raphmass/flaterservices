@@ -8,11 +8,6 @@ class TasksController < ApplicationController
   def show
   end
 
-  # def mytasks
-  #   query = {user_id: current_user}
-  #   query[:status] = 'Assigned' if param_assigned
-  #   @tasks = Task.where(query)
-  # end
   def mytasks
     if params[:assigned]
       query = { user_id: current_user, status: Task::STATUS[params[:assigned].to_i] }
@@ -29,12 +24,12 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     respond_to do |format|
-      if @task.save
+      if @task.save!
         format.html { redirect_to @task, notice: 'task was successfully created.' }
-        format.json { render :show, status: :created, location: @task }
+        # format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
+        # format.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -56,6 +51,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name)
+    params.require(:task).permit(:action, :status, :location, :price, :date, :user_id)
   end
 end
