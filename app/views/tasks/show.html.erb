@@ -1,2 +1,19 @@
+<div class="container">
 <h1>Tasks#show</h1>
-<p>Find me in app/views/tasks/show.html.erb</p>
+	<div class="task-card">
+	  <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/greece.jpg">
+	  <div class="task-card-infos">
+	    <div>
+	      <h2> <%= @task.action %></h2>
+	      <p><strong>Status: </strong><%= @task.status %></p>
+	      <p><strong>Location: </strong><%= @task.location %></p>
+	      <p><strong>Date: </strong><%= @task.date %></p>
+	      <p><strong>Flat owner: </strong><%= @task.user_id %></p>
+	    </div>
+	    <h2 class="task-card-apply btn btn-success">Apply</h2>
+	    <h2 class="task-card-pricing"><%= @task.price %> €</h2>
+	    <img src='https://kitt.lewagon.com/placeholder/users/krokrob' class="task-card-user avatar-bordered"/>
+	  </div>
+	</div>
+</div>
+
