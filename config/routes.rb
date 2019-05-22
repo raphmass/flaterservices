@@ -1,20 +1,8 @@
 Rails.application.routes.draw do
-  # get 'assignments/index'
-  # get 'assignments/show'
-  # get 'assignments/new'
-  # get 'assignments/create'
-  # get 'assignments/edit'
-  # get 'assignments/update'
-  # get 'assignments/destroy'
-  # get 'tasks/', to: 'tasks#index'
-  # get 'tasks/:id', to: 'tasks#show'
-  # get 'tasks/new'
-  # get 'tasks/create'
-  # get 'tasks/edit'
-  # get 'tasks/update'
-  # get 'tasks/destroy'
-  resources :assignments, only: [:new]
-  resources :tasks, only: [:index, :show, :new, :edit, :create]
+  resources :tasks, only: [:index, :show, :new, :edit, :create] do
+    resources :assignments, only: [ :index, :new, :create ]
+  end
+  resources :assignments, only: [ :show, :edit, :update, :destroy ]
   get 'my-tasks', to: 'tasks#mytasks'
   devise_for :users
   root to: 'pages#home'
