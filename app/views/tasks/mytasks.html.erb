@@ -2,19 +2,22 @@
 	<%# TITLE %>
 	<header class="d-flex justify-content-between py-3">
 		<h1 class="title">My Tasks</h1>
-		<%= link_to '+ Create a task', new_task_path, class: 'btn btn-primary' %>
+		<div id="user-menu">
+			<%= link_to 'as owner', my_tasks_path(role: 'owner'), class: 'btn' %>
+			<%= link_to 'as concierge', my_tasks_path(role: 'concierge'), class: 'btn' %>
+			<%= link_to '+ Create a task', new_task_path, class: 'btn btn-primary' %>
+		</div>
 	</header>
 
 	<%# OWNER TASKS %>
-	<% if @tasks.count.positive? %>
+	<% if !params[:role] || params[:role] == 'owner' %>
 		<div id="owner-menu" class="d-flex justify-content-between">
 			<h2><strong>As owner</strong> (<%= @tasks.count %>)</h2>
 			<%# OWNER MENU %>
 			<div class="menu">
 				<%= link_to 'All', my_tasks_path, class: 'btn' %>
-				<% Task::STATUS.each_with_index do |status, index| %>
-					<%= link_to status.capitalize, "?status=#{index}", class: 'btn'  %>
-				<% end %>
+				<%= link_to 'Not assigned', "?validated=0", class: 'btn' %>
+				<%= link_to 'Assigned', "?validated=1", class: 'btn' %>
 			</div>
 		</div>
 		<%# VIEW TASKS %>
@@ -28,26 +31,28 @@
 		<% end %>
 	<% end %>
 
-	<hr/>
-
 	<%# CONCIERGE TASKS %>
-	<% if @assignments.count.positive? %>
+	<% if params[:role] == 'concierge' %>
 		<div id="concierge-menu" class="d-flex justify-content-between">
 			<h2><strong>As concierge</strong> (<%= @assignments.count %>)</h2>
 			<%# CONCIERGE MENU %>
+			<%# data-toggle="tooltip" data-html="true" title="<em>Tooltip</em> <u>with</u> <b>HTML</b>" %>
 			<div class="menu">
-				<%= link_to 'All', my_tasks_path(anchor: 'concierge-menu'), class: 'btn' %>
-				<%= link_to 'Assigned', my_tasks_path(anchor: 'concierge-menu', assigned: 1), class: 'btn' %>
-				<%= link_to 'Not assigned', my_tasks_path(anchor: 'concierge-menu', assigned: 0), class: 'btn' %>
+				<%= link_to 'All', my_tasks_path(anchor: 'concierge-menu', role: params[:role]), class: 'btn', data: { toggle: 'tooltip', html: true}, title: 'All my tasks as a concierge' %>
+				<%= link_to 'Assigned', my_tasks_path(anchor: 'concierge-menu', role: params[:role], assigned: 1), class: 'btn', data: { toggle: 'tooltip', html: true}, title: 'All my tasks where I am assigned as a concierge' %>
+				<%= link_to 'Not assigned yet', my_tasks_path(anchor: 'concierge-menu', role: params[:role], assigned: 0, status: 0), class: 'btn', data: { toggle: 'tooltip', html: true}, title: 'All tasks I have applied as a concierge' %>
+				<%= link_to 'Missed', my_tasks_path(anchor: 'concierge-menu', role: params[:role], assigned: 0, status: 1), class: 'btn', data: { toggle: 'tooltip', html: true}, title: 'All tasks I missed as a concierge' %>
 			</div>
 		</div>
 		<%# VIEW TASKS %>
 		<% @assignments.each do |assignment| %>
 			<a href="/tasks/<%= assignment.task.id %>" class="d-flex justify-content-between py-2">
 				<span>#<%= assignment.task.id %></span>
+				<span>concierge_id: <%= assignment.user_id %></span>
 				<span><%= assignment.task.action.capitalize %></span>
-				<% status = Task::STATUS[assignment.task.status.to_i] %>
-				<span><%= status.capitalize if status %></span>
+				<span><%= assignment.validated %></span>
+				<span>owner_id: <%= assignment.task.user_id %></span>
+				<span><%= Task::STATUS[assignment.task.status.to_i] %></span>
 			</a>
 		<% end %>
 	<% end %>
