@@ -14,27 +14,14 @@ class TasksController < ApplicationController
   end
 
   def mytasks
-    # Tasks
-    # @all_tasks = Task.where(user_id: current_user).order('id DESC')
+    # My tasks (as owner)
     @all_tasks = current_user.tasks.order('id DESC')
-    # ASSIGNEMENT WHERE TASK_ID == CURRENT_USER.TASKS.ID && COUNT > 0
-    @tasks_to_assign = @all_tasks.where(status: 0).order('id DESC') # OK
-    # @tasks_to_assign = Assignment.where(task_id: @all_tasks)
-    # ASSIGNEMENT WHERE TASK_ID == CURRENT_USER.TASKS.ID && ASSIGNEMENT.VALIDATED TRUE && TASK.STATUS != DONE
-    @tasks_in_progress = Task.first(10)
-    # ASSIGNEMENT WHERE TASK_ID == CURRENT_USER.TASKS.ID && ASSIGNEMENT.VALIDATED TRUE && TASK.STATUS == DONE
-    @tasks_done = Task.last(10)
+    @tasks_to_assign = @all_tasks.where('tasks.id NOT IN (SELECT task_id FROM assignments a WHERE a.validated = TRUE)')
+    @tasks_in_progress = @all_tasks.joins(:assignments).where(assignments: {validated: true}, status: '1').uniq
+    @tasks_done = @all_tasks.joins(:assignments).where(assignments: {validated: true}, status: '2').uniq
 
-    # @tasks_to_assign = Task.all.joins(:@assigments).where(assignment: { user: current_user })
-    # @tasks_to_assign = Task.all.joins(:assigments).where('assigments.user_id = ?', current_user.id)
-
-    # Assignments
-    if params[:assigned] == "1"
-      validated = true
-    else
-      validated = false
-    end
-    a_query = params[:assigned] ? { user_id: current_user, validated: validated } : { user_id: current_user }
+    # My assignments (as concierge)
+    a_query = params[:assigned] ? { user_id: current_user, validated: params[:assigned] == "1" } : { user_id: current_user }
     @my_assignments = Assignment.where(a_query)
   end
 
