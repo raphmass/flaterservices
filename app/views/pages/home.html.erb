@@ -1,24 +1,24 @@
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://source.unsplash.com/1600x900/?apartment); height: 60vh">
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://source.unsplash.com/1600x900/?appartment);display: flex;">
   <div class="container d-flex justify-content-between">
-    <div>
-      <h1>
-      <span><strong>Flater</strong>Services<sup>&trade;</sup></span>
-      The best platform for flat visits & more
-      </h1>
-      <p class="lead">As a flat owner or as a concierge:</p>
 
-      <%= link_to 'Create a task', new_task_path, class: 'btn btn-primary' %>
-      <%= link_to 'Apply for tasks', tasks_path, class: 'btn btn-primary' %>
+
+
+    <div>
+        <h1>Flater Services: the best platform for flat visits</h1>
+        <p>As a flat owner or as a concierge:</p>
+        <a class="btn btn-primary" href="<%= new_task_path %>">CREATE A TASK </br> (owner) </a>
+        <a class="btn btn-primary" href="<%= tasks_path %>">APPLY TO TASK </br> (concierge) </a>
     </div>
 
     <% unless user_signed_in? %>
-      <div class="form-container">
-        <%= render 'devise/registrations/form' %>
-      </div>
+        <div class="form-container">
+            <%= render 'devise/registrations/form' %>
+        </div>
     <% end %>
+
   </div>
 </div>
 
 <div class="container">
-  <%= render 'pages/flaterdescription' %>
+    <%= render 'pages/flaterdescription' %>
 </div>
