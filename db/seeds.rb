@@ -108,7 +108,7 @@ end
 puts "... assignments created!"
 
 puts separator
-puts "4. Creating realitic tasks and assignements... "
+puts "4. Creating realistic tasks and assignments... "
 
 dareth = User.find_by(email: 'dareth@gmail.com')
 pierre = User.find_by(email: 'pierre@gmail.com')
