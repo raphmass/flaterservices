@@ -9,17 +9,20 @@
 # seeding database
 require 'faker'
 
-separator = "---------------------------"
+separator = "------------------------------------"
 
 puts separator
 puts "Seed starts :-)"
 
+puts separator
+puts "0. Destroy existing datas... "
 Assignment.destroy_all
 Task.destroy_all
 User.destroy_all
+puts "... Database is empty!"
 
 puts separator
-puts "1. creating users... "
+puts "1. Creating users... "
 pswd = '123flater'
 # Create team accounts
 team = [
@@ -44,7 +47,7 @@ end
 puts "... users created!"
 
 puts separator
-puts "2. creating tasks... "
+puts "2. Creating random tasks... "
 users = User.first(25)
 100.times do
   Task.create!(
@@ -57,7 +60,7 @@ end
 puts "... tasks created!"
     
 puts separator
-puts "3. creating assignments... "
+puts "3. Creating random assignments... "
 tasks = Task.all
 tasks.each do |task|
   Assignment.create!(
@@ -67,7 +70,88 @@ tasks.each do |task|
   )
 end
 puts "... assignements created!"
-  
+
+puts separator
+puts "4. Creating realitic tasks and assignements... "
+
+dareth = User.find_by(email: 'dareth@gmail.com')
+pierre = User.find_by(email: 'pierre@gmail.com')
+max = User.find_by(email: 'max@gmail.com')
+
+dareth.tasks.destroy_all
+
+t1 = Task.create!(
+  action: Task::ACTIONS.sample,
+  status: 1, # In progress
+  price: (5..50).to_a.sample,
+  user: dareth
+)
+
+t2 = Task.create!(
+  action: Task::ACTIONS.sample,
+  status: 2, # Done
+  price: (5..50).to_a.sample,
+  user: dareth
+)
+
+t3 = Task.create!(
+  action: Task::ACTIONS.sample,
+  status: 0, # To do
+  price: (5..50).to_a.sample,
+  user: dareth
+)
+
+t4 = Task.create!(
+  action: Task::ACTIONS.sample,
+  status: 0, # To do
+  price: (5..50).to_a.sample,
+  user: dareth
+)
+
+t5 = Task.create!(
+  action: Task::ACTIONS.sample,
+  status: 0, # To do
+  price: (5..50).to_a.sample,
+  user: dareth
+)
+
+Assignment.create!(
+  task: t1,
+  validated: true,
+  user: pierre
+)
+
+Assignment.create!(
+  task: t1,
+  validated: false,
+  user: max
+)
+
+Assignment.create!(
+  task: t2,
+  validated: true,
+  user: max
+)
+
+Assignment.create!(
+  task: t3,
+  validated: false,
+  user: pierre
+)
+
+Assignment.create!(
+  task: t4,
+  validated: false,
+  user: max
+)
+
+Assignment.create!(
+  task: t4,
+  validated: false,
+  user: dareth
+)
+puts "... realistic datas created!"
+
 puts separator
 puts "Seed is finished ;-)"
 puts separator
