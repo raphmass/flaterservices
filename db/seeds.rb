@@ -108,7 +108,7 @@ end
 puts "... assignments created!"
 
 puts separator
-puts "4. Creating realitic tasks and assignments... "
+puts "4. Creating realitic tasks and assignements... "
 
 dareth = User.find_by(email: 'dareth@gmail.com')
 pierre = User.find_by(email: 'pierre@gmail.com')
@@ -116,13 +116,10 @@ max = User.find_by(email: 'max@gmail.com')
 
 dareth.tasks.destroy_all
 
-address = addresses.sample
-
 t1 = Task.create!(
   action: Task::ACTIONS.sample,
   status: 1, # In progress
   price: (5..50).to_a.sample,
-  location: "#{address[:street_number]} #{address[:street_name]}, #{address[:zipcode]} #{address[:city]}",
   user: dareth
 )
 
@@ -130,7 +127,6 @@ t2 = Task.create!(
   action: Task::ACTIONS.sample,
   status: 2, # Done
   price: (5..50).to_a.sample,
-  location: "#{address[:street_number]} #{address[:street_name]}, #{address[:zipcode]} #{address[:city]}",
   user: dareth
 )
 
@@ -138,7 +134,6 @@ t3 = Task.create!(
   action: Task::ACTIONS.sample,
   status: 0, # To do
   price: (5..50).to_a.sample,
-  location: "#{address[:street_number]} #{address[:street_name]}, #{address[:zipcode]} #{address[:city]}",
   user: dareth
 )
 
@@ -146,7 +141,6 @@ t4 = Task.create!(
   action: Task::ACTIONS.sample,
   status: 0, # To do
   price: (5..50).to_a.sample,
-  location: "#{address[:street_number]} #{address[:street_name]}, #{address[:zipcode]} #{address[:city]}",
   user: dareth
 )
 
@@ -154,7 +148,6 @@ t5 = Task.create!(
   action: Task::ACTIONS.sample,
   status: 0, # To do
   price: (5..50).to_a.sample,
-  location: "#{address[:street_number]} #{address[:street_name]}, #{address[:zipcode]} #{address[:city]}",
   user: dareth
 )
 
