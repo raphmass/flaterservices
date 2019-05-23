@@ -48,7 +48,6 @@ puts "2. creating tasks... "
 users = User.first(25)
 100.times do
   Task.create!(
-    location: Faker::Address.city,
     action: Task::ACTIONS.sample,
     status: (0..(Task::STATUS.size - 1)).to_a.sample,
     price: (5..50).to_a.sample,
