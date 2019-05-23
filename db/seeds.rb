@@ -44,11 +44,10 @@ end
     role: nil
   )
 end
-
 puts "... users created!"
 
 puts separator
-puts "2. Creating random tasks... "
+puts "2. Creating random tasks and assignments... "
 users = User.first(10)
 addresses = [
   {street_number: '5', street_name: 'Rue Trarieux', zipcode: '69003', city: 'Lyon'},
@@ -81,34 +80,30 @@ addresses = [
   {street_number: '45', street_name: 'Rue Trarieux', zipcode: '69003', city: 'Lyon'}
 ]
 100.times do
+  # Creating tasks
   address = addresses.sample
-  Task.create!(
+  task = Task.create!(
     action: Task::ACTIONS.sample,
     status: (0..(Task::STATUS.size - 1)).to_a.sample,
     location: "#{address[:street_number]} #{address[:street_name]}, #{address[:zipcode]} #{address[:city]}",
     price: (5..50).to_a.sample,
     user: users.sample
   )
+  # Creating assignments
+  rand(4).times do |i|
+    Assignment.create!(
+      task: task,
+      validated: (i == 0) ? [true, false].sample : false,
+      user: users.sample
+    )
+  end
 end
-puts "... tasks created!"
+# A task can't be in progress or done if it is not assigned
+Task.where('tasks.id NOT IN (SELECT task_id FROM assignments a WHERE a.validated = TRUE)').update_all(status: 0)
+puts "... random tasks and assignments created!"
 
 puts separator
-puts "3. Creating random assignments... "
-tasks = Task.all
-tasks.each do |task|
-  validated = [true, false].sample
-  task.status = 0 if validated  # A task can't be done if it is not assigned
-  task.save
-  Assignment.create!(
-    task: tasks.sample,
-    validated: validated,
-    user: users.sample
-  )
-end
-puts "... assignments created!"
-
-puts separator
-puts "4. Creating realistic tasks and assignments... "
+puts "3. Creating realistic tasks and assignments... "
 
 dareth = User.find_by(email: 'dareth@gmail.com')
 pierre = User.find_by(email: 'pierre@gmail.com')
