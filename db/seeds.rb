@@ -44,6 +44,37 @@ end
     role: nil
   )
 end
+
+address = [
+  {street_number: '5', street_name: 'Rue Trarieux', code_post: '69003', city: 'Lyon'},
+  {street_number: '18', street_name: 'Rue Franklin', code_post: '69002', city: 'Lyon'},
+  {street_number: '58', street_name: 'Rue Pasteur', code_post: '69007', city: 'Lyon'},
+  {street_number: '22', street_name: 'Rue Smith', code_post: '69002', city: 'Lyon'},
+  {street_number: '32', street_name: 'Avenue Felix Faure', code_post: '69003', city: 'Lyon'},
+  {street_number: '8', street_name: 'Rue Rollet', code_post: '69003', city: 'Lyon'},
+  {street_number: '52', street_name: 'Rue de Sèze', code_post: '69006', city: 'Lyon'},
+  {street_number: '10', street_name: 'Rue Mazenod', code_post: '69003', city: 'Lyon'},
+  {street_number: '30', street_name: 'Rue Cuvier', code_post: '69006', city: 'Lyon'},
+  {street_number: '72', street_name: 'Boulevard Vivier Merle', code_post: '69003', city: 'Lyon'},
+  {street_number: '45', street_name: 'Rue de la république', code_post: '69002', city: 'Lyon'},
+  {street_number: '67', street_name: 'Rue du Président Edouard Herriot', code_post: '69003', city: 'Lyon'},
+  {street_number: '98', street_name: 'Rue Paul Bert', code_post: '69003', city: 'Lyon'},
+  {street_number: '20', street_name: 'Rue des capucins', code_post: '69001', city: 'Lyon'},
+  {street_number: '3', street_name: 'Avenue Lacassagne', code_post: '69003', city: 'Lyon'},
+  {street_number: '132', street_name: 'Avenue Lacassagne', code_post: '69003', city: 'Lyon'},
+  {street_number: '48', street_name: 'Rue Garibaldi ', code_post: '69003', city: 'Lyon'},
+  {street_number: '10', street_name: 'Rue de la charité', code_post: '69002', city: 'Lyon'},
+  {street_number: '57', street_name: 'Rue de Marseille', code_post: '69007', city: 'Lyon'},
+  {street_number: '3', street_name: 'Rue Chevreul', code_post: '69007', city: 'Lyon'},
+  {street_number: '12', street_name: 'Rue de la Thibaudière', code_post: '69007', city: 'Lyon'},
+  {street_number: '3', street_name: 'Rue Père Chevrier', code_post: '69007', city: 'Lyon'},
+  {street_number: '7', street_name: 'Rue du Plat', code_post: '69002', city: 'Lyon'},
+  {street_number: '9', street_name: 'Rue de Condé', code_post: '69002', city: 'Lyon'},
+  {street_number: '5', street_name: 'Rue Servient', code_post: '69003', city: 'Lyon'},
+  {street_number: '65', street_name: 'Rue Bossuet', code_post: '69006', city: 'Lyon'},
+  {street_number: '12', street_name: 'Rue de la république', code_post: '69002', city: 'Lyon'},
+  {street_number: '45', street_name: 'Rue Trarieux', code_post: '69003', city: 'Lyon'}
+]
 puts "... users created!"
 
 puts separator
@@ -53,12 +84,13 @@ users = User.first(25)
   Task.create!(
     action: Task::ACTIONS.sample,
     status: (0..(Task::STATUS.size - 1)).to_a.sample,
+    location: address.sample
     price: (5..50).to_a.sample,
     user: users.sample
   )
 end
 puts "... tasks created!"
-    
+
 puts separator
 puts "3. Creating random assignments... "
 tasks = Task.all
