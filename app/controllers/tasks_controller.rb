@@ -15,10 +15,17 @@ class TasksController < ApplicationController
 
   def mytasks
     # My tasks (as owner)
-    @all_tasks = current_user.tasks.order('id DESC')
+    @all_tasks = current_user.tasks.order('status ASC, id ASC')
     @tasks_to_assign = @all_tasks.where('tasks.id NOT IN (SELECT task_id FROM assignments a WHERE a.validated = TRUE)')
-    @tasks_in_progress = @all_tasks.joins(:assignments).where(assignments: {validated: true}, status: '1').uniq
-    @tasks_done = @all_tasks.joins(:assignments).where(assignments: {validated: true}, status: '2').uniq
+    @tasks_in_progress = @all_tasks.joins(:assignments).where(assignments: { validated: true }, status: 0..1).uniq
+    @tasks_done = @all_tasks.joins(:assignments).where(assignments: { validated: true }, status: '2').uniq
+
+    ### DEBUG
+    # p @all_tasks.ids
+    # p @tasks_to_assign.map(&:id)
+    # p @tasks_in_progress.map(&:id)
+    # p @tasks_done.map(&:id)
+    # p @all_tasks.ids - @tasks_to_assign.map(&:id) - @tasks_in_progress.map(&:id) -@tasks_done.map(&:id)
 
     # My assignments (as concierge)
     a_query = params[:assigned] ? { user_id: current_user, validated: params[:assigned] == "1" } : { user_id: current_user }

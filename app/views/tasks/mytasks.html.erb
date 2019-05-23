@@ -21,7 +21,7 @@
 			<%# OWNER MENU %>
 			<div class="menu">
 				<%= link_to "Not assigned (#{@tasks_to_assign.count})", "?validated=0", class: 'btn' %>
-				<%= link_to "In progress (#{@tasks_in_progress.count})", "?validated=1", class: 'btn' %>
+				<%= link_to "To start / In progress (#{@tasks_in_progress.count})", "?validated=1", class: 'btn' %>
 				<%= link_to "Done (#{@tasks_done.count})", "?validated=1&status=2", class: 'btn' %>
 				<%= link_to "All (#{@all_tasks.count})", my_tasks_path(task: 'all'), class: 'btn' %>
 			</div>
@@ -33,7 +33,7 @@
 				query = @tasks_done
 			 elsif params[:validated] == "1"
 				query = @tasks_in_progress
-			 elsif params[:tasks] == 'all'
+			 elsif params[:task] == 'all'
 				query = @all_tasks
 			 else
 			 	query = @tasks_to_assign # By default, not assigned tasks are displayed
@@ -48,7 +48,7 @@
 				<span><%= status.capitalize if status %></span>
 			</a>
 		<% end %>
-		<%#= raw(ap params.has_key?) %>
+		<%#= raw(ap query) %>
 	<% end %>
 
 	<%# CONCIERGE TASKS %>
