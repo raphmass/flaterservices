@@ -1,20 +1,16 @@
-<h2>Log in</h2>
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://source.unsplash.com/1600x900/?apartments);">
+  <div class="container d-flex justify-content-between align-items-start">
+    <div>
+      <h1>
+      <span><strong>Flater</strong>Services<sup>&trade;</sup></span>
+      There's always someone to help you</h1>
+      <p class="lead">to visit, to check in or to check out, to clean, and more!</p>
+    </div>
 
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: false,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
-    <%= f.input :password,
-                required: false,
-                input_html: { autocomplete: "current-password" } %>
-    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+    <div class="form-container">
+      <h2>Welcome back!</h2>
+      <p>Please log in to continue</p>
+      <%= render 'form' %>
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Log in" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
