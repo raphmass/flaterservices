@@ -1,8 +1,9 @@
 <div class="container">
-	<h1>Edit task <%= @task.id %> (only corresponding owner)</h1>
-	<h2>current user <%= current_user.id %> / user id of taks <%= @task.user_id %></h2>
-
+	<br>
+	
 	<% if current_user.id == @task.user_id %>
+		<h1>Edit task <%= @task.id %> (you are the owner)</h1>
+	
 	  <div class="container">
 	  	<%= simple_form_for (@task) do |f| %>
 	  	<%= f.error_notification %>
@@ -17,7 +18,7 @@
 	  	<% end %>
 	  </div>
 	<% else %>
-		<p>You cannot edit this task! Only the task owner can!</p>
+		<h1>You cannot edit this task! Only the task owner can!</h1>
 	<% end %>
 
 
