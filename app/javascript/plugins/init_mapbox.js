@@ -14,7 +14,7 @@ const initMapbox = () => {
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v10',
       center: [ marker.lng, marker.lat ],
-      zoom: 8
+      zoom: 15
     });
 
 

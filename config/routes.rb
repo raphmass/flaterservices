@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :tasks, only: [:index, :show, :new, :edit, :create] do
+  resources :tasks, only: [:index, :show, :new, :edit, :create, :update] do
     resources :assignments, only: [ :index, :new, :create ]
   end
   resources :assignments, only: [ :show, :edit, :update, :destroy ]

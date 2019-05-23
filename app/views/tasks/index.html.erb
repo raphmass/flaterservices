@@ -5,7 +5,7 @@
 	
 	<div class="tasks-grid">
 		<% @tasks.each do |task| %>
-			<div class="task-card">
+			<div class="task-card show-one">
 			  <%= cl_image_tag("Pics/#{task.action}",
           width: 400, height: 300, crop: :fill, :effect=>"grayscale") %>
 			  <div class="task-card-infos">
@@ -16,10 +16,15 @@
 			      <p><strong>Date: </strong><%= task.date %></p>
 			      <p><strong>Flat owner: </strong><%= task.user_id %></p>
 			    </div>
-			    <%= link_to "Details", task_path(task), class: 'btn btn-secondary mr-1' %>
-			    <%= link_to "Apply" , new_task_assignment_path(task), class: 'btn btn-info' %>
 			    <h2 class="task-card-pricing"><%= task.price %> €</h2>
 			    <img src='https://kitt.lewagon.com/placeholder/users/krokrob' class="task-card-user avatar-bordered"/>
+			  </div>
+			  <div class="d-flex m-1 justify-content-between">
+				  <%= link_to "Details", task_path(task), class: 'btn btn-secondary mr-1' %>
+				  <% if current_user.id == task.user_id %>
+				  <%= link_to "Edit" , edit_task_path(task), class: 'btn btn-primary' %>
+				  <% end %>
+				  <%= link_to "Apply" , new_task_assignment_path(task), class: 'btn btn-info' %>
 			  </div>
 			</div>
 		<% end %>
