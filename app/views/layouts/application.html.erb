@@ -10,20 +10,17 @@
     <%= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
   </head>
   <body>
-
-
+    <%# NAVBAR %>
     <%= render 'layouts/shared/navbar' %>
-
-
+    
+    <%# CONTENT %>
     <%= yield %>
 
+    <%# DEVISE NOTIFICATIONS %>
+    <%= raw("<p class=\"alert alert-info\">#{notice}</p>") if notice %>
+    <%= raw("<p class=\"alert alert-danger\">#{alert}</p>") if alert %>
 
-
-    <% # DEVISE NOTIFICATIONS %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-
-    <% # ASYNC JS %>
+    <%# ASYNC JS %>
     <%= javascript_include_tag 'application' %>
     <%= javascript_pack_tag 'application' %>
   </body>

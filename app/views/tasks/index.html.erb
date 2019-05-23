@@ -8,15 +8,15 @@
 			<div class="task-card">
 			  <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/greece.jpg">
 			  <div class="task-card-infos">
-			    <div>
-			      <h2> <%= task.action.capitalize %></h2>
+			    <div class="task-card-description">
+			      <h2><%= task.action.capitalize %></h2>
 			      <p><strong>Status: </strong><%= Task::STATUS[task.status.to_i].capitalize %></p>
 			      <p><strong>Location: </strong><%= task.location %></p>
 			      <p><strong>Date: </strong><%= task.date %></p>
 			      <p><strong>Flat owner: </strong><%= task.user_id %></p>
 			    </div>
-			    <h2 class="task-card-details btn btn-info"><%= link_to "Details",task_path(task) %> </h2>
-			    <h2 class="task-card-apply btn btn-success"><%= link_to "Apply" , new_task_assignment_path(task) %></h2>
+			    <%= link_to "Details", task_path(task), class: 'btn btn-secondary mr-1' %>
+			    <%= link_to "Apply" , new_task_assignment_path(task), class: 'btn btn-info' %>
 			    <h2 class="task-card-pricing"><%= task.price %> €</h2>
 			    <img src='https://kitt.lewagon.com/placeholder/users/krokrob' class="task-card-user avatar-bordered"/>
 			  </div>
