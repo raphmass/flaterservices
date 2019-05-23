@@ -48,6 +48,7 @@ puts "2. creating tasks... "
 users = User.first(25)
 100.times do
   Task.create!(
+    location: Faker::Address.city,
     action: Task::ACTIONS.sample,
     status: (0..(Task::STATUS.size - 1)).to_a.sample,
     price: (5..50).to_a.sample,
@@ -55,7 +56,7 @@ users = User.first(25)
   )
 end
 puts "... tasks created!"
-    
+
 puts separator
 puts "3. creating assignments... "
 tasks = Task.all
@@ -67,7 +68,7 @@ tasks.each do |task|
   )
 end
 puts "... assignements created!"
-  
+
 puts separator
 puts "Seed is finished ;-)"
 puts separator
