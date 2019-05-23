@@ -6,7 +6,8 @@
 	<div class="tasks-grid">
 		<% @tasks.each do |task| %>
 			<div class="task-card">
-			  <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/greece.jpg">
+			  <%= cl_image_tag("Pics/#{task.action}",
+          width: 400, height: 300, crop: :fill, :effect=>"grayscale") %>
 			  <div class="task-card-infos">
 			    <div class="task-card-description">
 			      <h2><%= task.action.capitalize %></h2>
