@@ -1,6 +1,6 @@
 <div class="container">
 	<% # TITLES
-	owner = { title: "as owner", count: @all_tasks.count }
+	owner = { title: "as owner", count: @tasks_to_assign.count + @tasks_in_progress.count }
 	concierge = { title: "as concierge", count: @my_assignments.count }
 	%>
 
@@ -20,25 +20,23 @@
 			<h2><%= owner[:title].capitalize %></h2>
 			<%# OWNER MENU %>
 			<div class="menu">
-				<%= link_to "All (#{@all_tasks.count})", my_tasks_path, class: 'btn' %>
 				<%= link_to "Not assigned (#{@tasks_to_assign.count})", "?validated=0", class: 'btn' %>
 				<%= link_to "In progress (#{@tasks_in_progress.count})", "?validated=1", class: 'btn' %>
 				<%= link_to "Done (#{@tasks_done.count})", "?validated=1&status=2", class: 'btn' %>
+				<%= link_to "All (#{@all_tasks.count})", my_tasks_path(task: 'all'), class: 'btn' %>
 			</div>
 		</div>
 		<%# VIEW TASKS %>
 		<% if params[:validated] == "0"
-				# test = 'Not assigned'
 				query = @tasks_to_assign
 			 elsif params[:validated] == "1" && params[:status] == "2"
-				# test = 'Done'
 				query = @tasks_done
 			 elsif params[:validated] == "1"
-				# test = 'In progress'
 				query = @tasks_in_progress
-			 else
-				# test = 'All'
+			 elsif params[:tasks] == 'all'
 				query = @all_tasks
+			 else
+			 	query = @tasks_to_assign # By default, not assigned tasks are displayed
 			 end
 		%>
 		<% query.each do |task| %>
@@ -50,7 +48,7 @@
 				<span><%= status.capitalize if status %></span>
 			</a>
 		<% end %>
-		<%= raw(ap query) %>
+		<%#= raw(ap params.has_key?) %>
 	<% end %>
 
 	<%# CONCIERGE TASKS %>
