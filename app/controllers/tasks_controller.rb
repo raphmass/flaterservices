@@ -17,7 +17,7 @@ class TasksController < ApplicationController
     # My tasks (as owner)
     @all_tasks = current_user.tasks.order('id DESC')
     @tasks_to_assign = @all_tasks.where('tasks.id NOT IN (SELECT task_id FROM assignments a WHERE a.validated = TRUE)')
-    @tasks_in_progress = @all_tasks.joins(:assignments).where(assignments: {validated: true}, status: '1').uniq
+    @tasks_in_progress = @all_tasks.joins(:assignments).where(assignments: {validated: true}, status: ['0','1']).uniq
     @tasks_done = @all_tasks.joins(:assignments).where(assignments: {validated: true}, status: '2').uniq
 
     # My assignments (as concierge)
