@@ -8,14 +8,13 @@ class AssignmentsController < ApplicationController
   def show
   end
 
-  def edit
+  def update
   end
 
   def new
     @task = Task.find(params[:task_id])
     @assignment = Assignment.new
   end
-
 
   def create
     @assignment = Assignment.new
@@ -25,7 +24,18 @@ class AssignmentsController < ApplicationController
     @assignment.save
 
     redirect_to my_tasks_path
+  end
 
+  def valid
+    @assignment = Assignment.find(params[:id])
+    @assignment.update(validated: true)
+    redirect_back(fallback_location: root_path)
+  end
+
+  def reject
+    @assignment = Assignment.find(params[:id])
+    @assignment.update(validated: false)
+    redirect_back(fallback_location: root_path)
   end
 
   private

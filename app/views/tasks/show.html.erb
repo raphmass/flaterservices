@@ -1,11 +1,7 @@
 <div class="container">
  <h1>Task <%= @task.id %> - <%= @task.action %> </h1>
-</div>
-
-<div class="container">
 
   <div class="row">
-
     <div class="col-12 col-lg-8">
     	<div class="task-card">
     	  		<%= cl_image_tag("Pics/#{@task.action}",
@@ -27,7 +23,6 @@
     	  </div>
     	</div>	
     </div>
-
     <div class="col-12 col-lg-4">
     	<div id="map" style="width: 100%; height: 350px;"
     	  data-marker="<%= @marker.to_json %>"
@@ -35,7 +30,28 @@
     	</div>
     </div>
 
-  </div>
+    <div>
+        <% @task.assignments.each do |assignment| %>  
+
+            <div class="card-candidate">
+              <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg">
+              <div class="card-candidate-infos">
+                <h2>Candidate id: <%= assignment.user_id %></h2>
+                <h2>Assignment id: <%= assignment.id %></h2>
+                <div>
+                    <p>Application status: <strong>
+                        <% if assignment.validated == nil %>
+                        <%= "PENDING" %>
+                        <% else %>
+                        <%= assignment.validated == true ? "VALIDATED" : "REJECTED" %>
+                        <% end %>
+                    </strong></p>
+                    <%= link_to "Validate" , valid_assignment_path(assignment),  method: :patch,class: 'btn btn-info' %>
+                    <%= link_to "Reject" , reject_assignment_path(assignment), method: :patch ,class: 'btn btn-danger' %>
+                </div>
+              </div>
+            </div>
+ 
+    <% end %>
+
 </div>
-
-
