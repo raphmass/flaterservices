@@ -1,0 +1,49 @@
+#tasks-list {
+	margin-top: 1em;
+	
+	a {
+		color: $gray;
+		text-decoration: none;
+	}
+	li {
+		transition: all .5s;
+	}
+
+	li:hover {
+		background: rgba($gray, .0125);
+	}
+
+	.list-headers {
+		text-align: left;
+		font-size: .5em;
+		font-weight: 900;
+		padding: 0 1.25rem;
+	}
+	
+	.task-id {
+		@extend .text-muted;
+		width: 5%;
+	}
+	
+	.task-date {
+		width: 12%;
+	}
+	
+	.task-action {
+		width: 15%;
+		font-weight: 900;
+	}
+
+	.task-location {
+		width: 48%;
+	}
+	
+	.task-applicants {
+		width: 10%;
+	}
+	
+	.task-status {
+		width: 10%;
+		white-space: nowrap; 
+	}
+}
