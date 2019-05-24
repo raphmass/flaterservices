@@ -1,14 +1,14 @@
 
 <div class="container">
 	<h1>New task (from flat owner):</h1>
-	
+
 	<%= simple_form_for (@task) do |f| %>
 	<%= f.error_notification %>
 	<%= f.input :user_id, :as => :hidden, :input_html => { :value => current_user.id } %>
 	<%= f.input :status, :as => :hidden, :input_html => { :value => 0 } %>
 	<%= f.input :action, selected:'Visit', collection: Task::ACTIONS %>
 	<%= f.input :location %>
-	<%= f.input :date %>
+	<%= f.input :date, as: :date, html5:true,:input_html => { :value => Date.today, class: "datepicker"} %>
 	<%= f.input :price %>
 	<%= f.button :submit, class: "btn-primary" %>
 	<%= link_to "Back", my_tasks_path , {:class=>"btn btn-default"} %>

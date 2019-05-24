@@ -7,3 +7,11 @@ initMapbox()
 initAutocomplete()
 
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+
+import flatpickr from "flatpickr";
+
+// const flatpickr = require("flatpickr");
+// var datepicker = document.querySelector(".datepicker")
+// console.log(datepicker)
+
+flatpickr(".datepicker")
