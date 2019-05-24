@@ -7,6 +7,7 @@ class Task < ApplicationRecord
 
   ACTIONS = ['visit', 'cleaning', 'check-in or out']
   STATUS = ['to do', 'in progress', 'done']
+  FACE_IDS = ['01', '02', '03', '04']
 
   scope :done, -> { where(status: "2") }
 end
