@@ -28,8 +28,16 @@ class TasksController < ApplicationController
     # p @all_tasks.ids - @tasks_to_assign.map(&:id) - @tasks_in_progress.map(&:id) -@tasks_done.map(&:id)
 
     # My assignments (as concierge)
-    a_query = params[:assigned] ? { user_id: current_user, validated: params[:assigned] == "1" } : { user_id: current_user }
-    @my_assignments = Assignment.where(a_query)
+    @tasks_validated = current_user.tasks_validated
+    @tasks_applied = current_user.tasks_applied
+    # @tasks_applied = @my_assignments.where(validated: false)
+    # TOUTES LES TACHES AUXQUELLES J'AI POSTULÉES QUI SONT VALIDÉES PAR UN AUTRE USER_ID
+    @tasks_missed = current_user.tasks_missed
+    # @tasks_missed = @assignments.where(task: @tasks_applied, validated: true).where.not(user: current_user)
+    # @tasks_missed = @assignments.where(id: @my_assignments.id, validated: true).where_not(user_id: current_user)
+    # @tasks_missed = @assignments.where(validated: true).where_not(user_id: current_user)
+    # @tasks_missed = @assignments.where(user_id: current_user).where(validated: true)
+
   end
 
   def new
@@ -67,10 +75,12 @@ class TasksController < ApplicationController
   def set_task
     # All tasks
     @tasks = Task.all
+    @assignments = Assignment.all
     # User tasks
     if current_user
       @my_tasks = Task.where(user_id: current_user)
-      @my_assignments = Assignment.where(user_id: current_user)
+      # @my_assignments = Assignment.where(user_id: current_user)
+      @my_assignments = current_user.owned_tasks
     end
     # Task details
     if params[:id]
