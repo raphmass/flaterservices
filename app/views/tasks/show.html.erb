@@ -6,6 +6,7 @@
     	<div class="task-card">
     	  		<%= cl_image_tag("Pics/#{@task.action}",
               width: 600, height: 400, crop: :fill, gravity: :face, :effect=>"grayscale") %>
+
     	  <div class="task-card-infos">
     	    <div>
     	      <h2> <%= @task.action %></h2>
@@ -34,7 +35,8 @@
         <% @task.assignments.each do |assignment| %>  
 
             <div class="card-candidate">
-              <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg">
+              <%= cl_image_tag("Faces/face#{rand(1..12)}",
+               width: 475, height: 300, crop: :fit, :effect=>"grayscale") %>
               <div class="card-candidate-infos">
                 <h2>Candidate id: <%= assignment.user_id %></h2>
                 <h2>Assignment id: <%= assignment.id %></h2>
