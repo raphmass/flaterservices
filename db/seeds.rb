@@ -35,7 +35,7 @@ team.each do |teamate|
   User.create!(teamate)
 end
 # Create fake accounts
-50.times do
+100.times do
   User.create!(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
@@ -79,7 +79,8 @@ addresses = [
   {street_number: '12', street_name: 'Rue de la république', zipcode: '69002', city: 'Lyon'},
   {street_number: '45', street_name: 'Rue Trarieux', zipcode: '69003', city: 'Lyon'}
 ]
-100.times do
+
+30.times do
   # Creating tasks
   address = addresses.sample
   task = Task.create!(
@@ -90,7 +91,7 @@ addresses = [
     user: users.sample
   )
   # Creating assignments
-  rand(4).times do |i|
+  rand(2..5).times do |i|
     Assignment.create!(
       task: task,
       validated: (i == 0) ? [true, false].sample : false,
@@ -105,83 +106,72 @@ puts "... random tasks and assignments created!"
 puts separator
 puts "3. Creating realistic tasks and assignments... "
 
-dareth = User.find_by(email: 'dareth@gmail.com')
-pierre = User.find_by(email: 'pierre@gmail.com')
+# dareth = User.find_by(email: 'dareth@gmail.com')
+# pierre = User.find_by(email: 'pierre@gmail.com')
 max = User.find_by(email: 'max@gmail.com')
 
-dareth.tasks.destroy_all
+max.tasks.destroy_all
 
-t1 = Task.create!(
-  action: Task::ACTIONS.sample,
-  status: 1, # In progress
-  price: (5..50).to_a.sample,
-  user: dareth
-)
+#creating "NOT ASSIGNED TASKS"
 
-t2 = Task.create!(
-  action: Task::ACTIONS.sample,
-  status: 2, # Done
-  price: (5..50).to_a.sample,
-  user: dareth
-)
+2.times do
+  # Creating tasks
+  address = addresses.sample
+  task = Task.create!(
+    action: Task::ACTIONS.sample,
+    status: 0,
+    location: "#{address[:street_number]} #{address[:street_name]}, #{address[:zipcode]} #{address[:city]}",
+    price: (5..50).to_a.sample,
+    user: max
+  )
+  # Creating assignments
+  3.times do |i|
+    Assignment.create!(
+      task: task,
+      validated: nil,
+      user: users.sample
+    )
+  end
+end
 
-t3 = Task.create!(
-  action: Task::ACTIONS.sample,
-  status: 0, # To do
-  price: (5..50).to_a.sample,
-  user: dareth
-)
+#creating "WIP TASKS"
 
-t4 = Task.create!(
-  action: Task::ACTIONS.sample,
-  status: 0, # To do
-  price: (5..50).to_a.sample,
-  user: dareth
-)
+2.times do
+  # Creating tasks
+  address = addresses.sample
+  task = Task.create!(
+    action: Task::ACTIONS.sample,
+    status: 1,
+    location: "#{address[:street_number]} #{address[:street_name]}, #{address[:zipcode]} #{address[:city]}",
+    price: (5..50).to_a.sample,
+    user: max
+  )
+  # Creating assignments
+  Assignment.create!(task: task, validated: true, user: users.sample)
+  4.times do
+    Assignment.create!(task: task, validated: false, user: users.sample)
+  end
+end
 
-t5 = Task.create!(
-  action: Task::ACTIONS.sample,
-  status: 0, # To do
-  price: (5..50).to_a.sample,
-  user: dareth
-)
+#creating "DONE TASKS"
 
-Assignment.create!(
-  task: t1,
-  validated: true,
-  user: pierre
-)
-
-Assignment.create!(
-  task: t1,
-  validated: false,
-  user: max
-)
-
-Assignment.create!(
-  task: t2,
-  validated: true,
-  user: max
-)
-
-Assignment.create!(
-  task: t3,
-  validated: false,
-  user: pierre
-)
-
-Assignment.create!(
-  task: t4,
-  validated: false,
-  user: max
-)
-
-Assignment.create!(
-  task: t4,
-  validated: false,
-  user: dareth
-)
-puts "... realistic datas created!"
+2.times do
+  # Creating tasks
+  address = addresses.sample
+  task = Task.create!(
+    action: Task::ACTIONS.sample,
+    status: 2,
+    location: "#{address[:street_number]} #{address[:street_name]}, #{address[:zipcode]} #{address[:city]}",
+    price: (5..50).to_a.sample,
+    user: max
+  )
+  # Creating assignments
+  Assignment.create!(task: task, validated: true, user: users.sample)
+  4.times do
+    Assignment.create!(task: task, validated: false, user: users.sample)
+  end
+end
+puts "Tasks and assignments created for Max!"
 
 puts separator
 puts "Seed is finished ;-)"

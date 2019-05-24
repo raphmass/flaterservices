@@ -5,7 +5,7 @@ class Task < ApplicationRecord
   geocoded_by :location
   after_validation :geocode, if: :will_save_change_to_location?
 
-  ACTIONS = ['visit', 'cleaning', 'check-in or out', 'extra']
+  ACTIONS = ['visit', 'cleaning', 'check-in or out']
   STATUS = ['to do', 'in progress', 'done']
 
   scope :done, -> { where(status: "2") }
