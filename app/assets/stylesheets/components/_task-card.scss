@@ -41,10 +41,13 @@
     }
 
     .task-card-user {
+      $avatar_size_small: 50px;
       position: absolute;
       right: 16px;
-      top: -20px;
-      width: 40px;
+      top: -1 * $avatar_size_small / 2;
+      width: $avatar_size_small;
+      height: $avatar_size_small;
+      object-fit: cover;
     }
     
     .task-card-pricing {
