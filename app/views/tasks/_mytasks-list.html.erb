@@ -1,0 +1,48 @@
+<%# VARIABLES
+query
+%>
+
+<ul id="tasks-list" class="list-group">
+	<li class="list-headers d-flex justify-content-between">
+		<div class="task-id">#ID</div>
+		<div class="task-action">ACTIONS</div>
+		<div class="task-date"><i class="far fa-calendar-alt"></i> DATE</div>
+		<div class="task-location"><i class="fas fa-map-marker-alt"></i> LOCATION</div>
+		<div class="task-applicants">APPLICANTS</div>
+		<div class="task-status">STATUS</div>
+		<div class="task-tips">TIPS €</div>
+	</li>
+	<% query.each do |task| %>
+	<li class="list-group-item">
+		<a href="/tasks/<%= task.id %>" class="d-flex justify-content-between py-2">
+			<%# TASK ID, ACTION, DATE, LOCATION %>
+			<div class="task-id">#<%= task.id %></div>
+			<div class="task-action"><%= task.action.capitalize %></div>
+			<div class="task-date"><%= task.date %></div>
+			<div class="task-location"><i class="fas fa-map-marker-alt text-muted"></i> <%= task.location %></div>
+			<%# TASK APPLICANT %>
+			<div class="task-applicants">
+				<% if params[:role] == 'concierge' && params[:assigned] == 1 %>
+					<i class="fas fa-check-circle text-success"></i>
+				<% else %>
+					<% applicants = Assignment.where(task_id: task.id) %>
+					<% applicant_class = (applicants.count > 0) ? 'dark' : 'danger' %>
+					<i class="fas fa-users text-muted"></i> <span class="badge badge-pill badge-<%= applicant_class %>"><%= applicants.count %></span>
+				<% end %>
+			</div>
+			<% status = Task::STATUS[task.status.to_i] %>
+			<% case task.status
+				when "0"
+					status_class = 'danger'
+				when "1"
+					status_class = 'warning'
+				when "2"
+					status_class = 'success'
+				end
+			%>
+			<div class="task-status"><span class="badge badge-pill badge-<%= status_class %>"><%= status.capitalize if status %></span></div>
+			<div class="task-tips"><%= task.price %>€</div>
+		</a>
+	</li>
+	<% end %>
+</ul>
