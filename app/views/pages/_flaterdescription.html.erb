@@ -1,60 +1,81 @@
-<section id="description"">
+<section id="description">
   <h2 class="text-center">How does it work ?</h2>
   <p class="lead text-center"><strong>Flater Services<sup>&circledR;</sup></strong> helps flat owners to find trustable helpers to do visits or clean their flats, or to check in and check out tenants. Helpers can find a lot of opportunities around!</p>
 
   <div class="cards">
     <div class="card">
-      <img src="assets/FlaterLogo.png"/>
-      <h3>In trust your real estate</h3>
+      <%= cl_image_tag("flat-owner",
+         width: 475, height: 300, crop: :fit, :effect=>"grayscale") %>
+      <h3>Intrust your real estate</h3>
       <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+      You are tired about making visit, check-in/out, and cleaning the mess of your
+      tenants, delegate all that task on FLater Services !
       </p>
     </div>
 
     <div class="card">
-      <img src="assets/FlaterLogo.png"/>
-      <h3>Another title</h3>
+      <%= cl_image_tag("intrust",
+         width: 475, height: 300, crop: :fit, :effect=>"grayscale") %>
+      <h3>Find the perfect Helper and the perfect task</h3>
       <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+      Flater services allows you as a owner to find a helper for the daily task,
+      and as a helper, find some task around you, anytime you want.
       </p>
     </div>
 
     <div class="card">
-      <img src="assets/FlaterLogo.png"/>
-      <h3>Earn good comission as a Flat'Helper</h3>
+      <%= cl_image_tag("top",
+         width: 475, height: 300, crop: :fit, :effect=>"grayscale") %>
+      <h3>Reviewed</h3>
       <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+      You will only find serious Helper on Flater services. Every mission is rated.
+      Your flat is in goods hands !
       </p>
     </div>
 </section>
 
 <section id="services">
   <h2 class="text-center">Why join us?</h2>
-  <p class="lead text-center">This is a cheap version of course</p>
-  
   <div class="cards">
     <div class="card">
-      <img src="assets/FlaterLogo.png"/> 
-      <h3>In trust your real estate</h3>
+      <%= cl_image_tag("done",
+         width: 475, height: 300, crop: :fit, :effect=>"grayscale") %>
+      <h3>The real estate agency, it's done !</h3>
       <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+      As of now, owner doesn't need real estate agent anymore. The Flat'Helper
+      can manage all the task. Choose FlaterServices and save your money !
       </p>
     </div>
 
     <div class="card">
-      <img src="assets/FlaterLogo.png"/>
-      <h3>Another title</h3>
-      <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-      </p>
-    </div>
-
-    <div class="card">
-      <img src="assets/FlaterLogo.png"/>
+      <%= cl_image_tag("money",
+         width: 475, height: 300, crop: :fit, :effect=>"grayscale") %>
       <h3>Earn good comission as a Flat'Helper</h3>
       <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+      Anytime you want you can take in charge a Flater Task arround you.
+      Book your task, execute it and be paid for it instantly.
+      </p>
+    </div>
+
+    <div class="card">
+      <%= cl_image_tag("invest",
+         width: 475, height: 300, crop: :fit, :effect=>"grayscale") %>
+      <h3>Invest anywhere you want !</h3>
+      <p>
+      As of now, as an investor in real estate, you can invest far away from
+      home. Embrace every opprtunities you find, not matter the location, a Flat'Helper will
+      take care about the physical management of your real estate goods.
       </p>
     </div>
   </div>
-</section>
+
+  <footer class="page-footer font-small blue">
+
+
+  <div class="footer-copyright text-center py-3">© 2019 Copyright:
+    <p> Flater Services</p>
+  </div>
+
+
+</footer>
+
