@@ -22,7 +22,7 @@ query
 			<div class="task-location"><i class="fas fa-map-marker-alt text-muted"></i> <%= task.location %></div>
 			<%# TASK APPLICANT %>
 			<div class="task-applicants">
-				<% if params[:role] == 'concierge' && params[:assigned] == 1 %>
+				<% if params[:role] == 'concierge' && params[:assigned] == '1' %>
 					<i class="fas fa-check-circle text-success"></i>
 				<% else %>
 					<% applicants = Assignment.where(task_id: task.id) %>
