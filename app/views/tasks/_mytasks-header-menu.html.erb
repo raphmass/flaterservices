@@ -1,0 +1,16 @@
+<%# VARIABLES
+title
+links : text, title, path, color, count, data
+
+# TWEAKS TO IMPLEMENT
+- tooltip : data-toggle="tooltip" data-html="true" title="<em>Tooltip</em> <u>with</u> <b>HTML</b>"
+%>
+
+<div id="menu" class="d-flex justify-content-between">
+	<h2 class="subtitle"><strong><%= title.capitalize %></strong></h2>
+	<div class="menu">
+		<% links.each do |link| %>
+			<%= link_to raw("#{link[:text]} <span class=\"badge badge-pill badge-#{link[:color]}\">#{link[:count]}</span>"), link[:path], class: 'btn', data: link[:data], title: link[:title] %>
+		<% end %>
+	</div>
+</div>
