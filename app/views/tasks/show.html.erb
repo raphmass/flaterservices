@@ -12,7 +12,7 @@
               <p><strong>Status: </strong><%= @task.status %></p>
               <p><strong>Location: </strong><%= @task.location %></p>
               <p><strong>Date: </strong><%= @task.date %></p>
-              <p><strong>Flat owner: </strong><%= @task.user_id %></p>
+              <p><strong>Flat owner: </strong><%= @task.user_id %> / <%= current_user.id %></p>
             </div>
             <% if current_user.id == @task.user_id %>
               <%= link_to "Edit" , edit_task_path(@task), class: 'btn btn-primary' %>
@@ -28,7 +28,7 @@
         </div>
       </div>
     <%# APPLICANTS LIST %>
-    <% if @task.assignments.count > 0 %>
+    <% if @task.assignments.count > 0 && @task.user_id == current_user.id %>
     <section id="applicants-list">
       <h2><%= pluralize(@task.assignments.count, 'applicant') %></h2>
       <% @task.assignments.each do |assignment| %>  
