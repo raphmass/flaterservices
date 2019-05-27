@@ -9,17 +9,17 @@
 # seeding database
 require 'faker'
 
-separator = "------------------------------------"
+separator = "------------------------------------------------"
 
 puts separator
-puts "Seed starts :-)"
+puts "Seed starts..."
 
 puts separator
 puts "0. Destroy existing datas... "
 Assignment.destroy_all
 Task.destroy_all
 User.destroy_all
-puts "... Database is empty!"
+puts "... Database is empty! ✔"
 
 puts separator
 puts "1. Creating users... "
@@ -44,7 +44,7 @@ end
     role: nil
   )
 end
-puts "... users created!"
+puts "... users created! ✔"
 
 puts separator
 puts "2. Creating random tasks and assignments... "
@@ -80,7 +80,7 @@ addresses = [
   {street_number: '45', street_name: 'Rue Trarieux', zipcode: '69003', city: 'Lyon'}
 ]
 
-30.times do
+80.times do
   # Creating tasks
   address = addresses.sample
   task = Task.create!(
@@ -91,7 +91,7 @@ addresses = [
     user: users.sample
   )
   # Creating assignments
-  rand(2..5).times do |i|
+  rand(4).times do |i|
     Assignment.create!(
       task: task,
       validated: (i == 0) ? [true, false].sample : false,
@@ -101,7 +101,7 @@ addresses = [
 end
 # A task can't be in progress or done if it is not assigned
 Task.where('tasks.id NOT IN (SELECT task_id FROM assignments a WHERE a.validated = TRUE)').update_all(status: 0)
-puts "... random tasks and assignments created!"
+puts "... random tasks and assignments created! ✔"
 
 puts separator
 puts "3. Creating realistic tasks and assignments... "
@@ -112,8 +112,7 @@ max = User.find_by(email: 'max@gmail.com')
 
 max.tasks.destroy_all
 
-#creating "NOT ASSIGNED TASKS"
-
+# 3.1. Creating "NOT ASSIGNED TASKS"
 2.times do
   # Creating tasks
   address = addresses.sample
@@ -134,8 +133,7 @@ max.tasks.destroy_all
   end
 end
 
-#creating "WIP TASKS"
-
+# 3.2. Creating "WIP TASKS"
 2.times do
   # Creating tasks
   address = addresses.sample
@@ -153,8 +151,7 @@ end
   end
 end
 
-#creating "DONE TASKS"
-
+# 3.3. Creating "DONE TASKS"
 2.times do
   # Creating tasks
   address = addresses.sample
@@ -171,7 +168,7 @@ end
     Assignment.create!(task: task, validated: false, user: users.sample)
   end
 end
-puts "Tasks and assignments created for Max!"
+puts "... tasks and assignments created for Max! ✔"
 
 puts separator
 puts "Seed is finished ;-)"
