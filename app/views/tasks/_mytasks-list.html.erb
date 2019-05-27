@@ -13,6 +13,22 @@ query
 		<div class="task-tips">TIPS €</div>
 	</li>
 	<% query.each do |task| %>
+	<% status = Task::STATUS[task.status.to_i] %>
+	<% case task.status
+		when "0"
+			status_class = 'danger'
+			applicant_class = 'dark'
+		when "1"
+			status_class = 'warning'
+			applicant_class = 'dark'
+		when "2"
+			status_class = 'success'
+			applicant_class = 'success'
+		else 
+			status_class = 'dark'
+			applicant_class = 'dark'
+		end
+	%>
 	<li class="list-group-item">
 		<a href="/tasks/<%= task.id %>" class="d-flex justify-content-between py-2">
 			<%# TASK ID, ACTION, DATE, LOCATION %>
@@ -23,23 +39,13 @@ query
 			<%# TASK APPLICANT %>
 			<div class="task-applicants">
 				<% if params[:role] == 'concierge' && params[:assigned] == '1' %>
-					<i class="fas fa-check-circle text-success"></i>
+					<i class="fas fa-check-circle text-<%= applicant_class %>"></i>
 				<% else %>
 					<% applicants = Assignment.where(task_id: task.id) %>
 					<% applicant_class = (applicants.count > 0) ? 'dark' : 'danger' %>
 					<i class="fas fa-users text-muted"></i> <span class="badge badge-pill badge-<%= applicant_class %>"><%= applicants.count %></span>
 				<% end %>
 			</div>
-			<% status = Task::STATUS[task.status.to_i] %>
-			<% case task.status
-				when "0"
-					status_class = 'danger'
-				when "1"
-					status_class = 'warning'
-				when "2"
-					status_class = 'success'
-				end
-			%>
 			<div class="task-status"><span class="badge badge-pill badge-<%= status_class %>"><%= status.capitalize if status %></span></div>
 			<div class="task-tips"><%= task.price %>€</div>
 		</a>
