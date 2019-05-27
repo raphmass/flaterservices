@@ -1,0 +1,18 @@
+<div class="card-candidate">
+	<%= cl_image_tag("Faces/face#{rand(1..12)}", width: 475, height: 300, crop: :fit, :effect=>"grayscale") %>
+	<div class="card-candidate-infos">
+		<h2>Candidate id: <%= assignment.user_id %></h2>
+		<h2>Assignment id: <%= assignment.id %></h2>
+		<div>
+			<p>Application status: <strong>
+			<% if assignment.validated == nil %>
+				<%= "PENDING" %>
+			<% else %>
+				<%= assignment.validated == true ? "VALIDATED" : "REJECTED" %>
+			<% end %>
+			</strong></p>
+			<%= link_to "Validate" , valid_assignment_path(assignment),  method: :patch,class: 'btn btn-info' %>
+			<%= link_to "Reject" , reject_assignment_path(assignment), method: :patch ,class: 'btn btn-danger' %>
+		</div>
+	</div>
+</div>
